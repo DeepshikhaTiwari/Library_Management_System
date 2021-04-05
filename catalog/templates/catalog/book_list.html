@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    {% extends "base_generic.html" %}
+{% extends "base_generic.html" %}
 
 {% block content %}
   <h1>Book List</h1>
-  {% if book_list %}
+
+  {% if my_book_list %}
   <ul>
-    {% for book in book_list %}
+    {% for book in my_book_list %}
       <li>
         <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}})
       </li>
@@ -18,5 +15,3 @@
     <p>There are no books in the library.</p>
   {% endif %}
 {% endblock %}
-</head>
-</html>
