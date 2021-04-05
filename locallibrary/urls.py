@@ -20,10 +20,10 @@ from django.urls import include, path, re_path
 from django.views.generic import RedirectView
 from django.views.static import serve
 
-
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('catalog/', include('catalog.urls')),
                   path('', RedirectView.as_view(url='catalog/', permanent=True)),
+                  path('accounts/', include('django.contrib.auth.urls')),
                   path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
