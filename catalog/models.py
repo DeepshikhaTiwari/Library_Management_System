@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 import uuid
 from django.contrib.auth.models import User
+
 from datetime import date
 
 
@@ -25,6 +26,7 @@ class BookInstance(models.Model):
         if self.due_back and date.today() > self.due_back:
             return True
         return False
+
     borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4,
                           help_text='Unique ID for this particular book across whole library')
@@ -87,6 +89,5 @@ class Book(models.Model):
 
     def display_genre(self):
         return ', '.join(genre.name for genre in self.genre.all()[:3])
+
     display_genre.short_description = 'Genre'
-
-
