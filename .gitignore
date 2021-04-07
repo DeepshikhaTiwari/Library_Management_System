@@ -2,3 +2,5 @@
 .idea
 .git
 .migrations
+__pycache__
+migrations
