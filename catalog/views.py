@@ -2,7 +2,7 @@ import datetime
 
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
-from catalog.models import Book, Author, BookInstance, Genre
+from .models import Book, Author, BookInstance, Genre
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import permission_required, login_required
 from django.http import HttpResponseRedirect
@@ -10,7 +10,7 @@ from django.urls import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-from catalog.forms import RenewBookForm
+from .forms import RenewBookForm
 
 
 @login_required
@@ -56,7 +56,7 @@ def index(request):
 
 class BookListView(generic.ListView):
     model = Book
-    paginate_by = 2
+    paginate_by = 4
     context_object_name = 'my_book_list'
     queryset = Book.objects.filter(title__icontains='war')[:5]
     template_name = 'books/book_detail.html'
@@ -83,7 +83,7 @@ class BookDetailView(generic.DetailView):
 class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
     model = BookInstance
     template_name = 'catalog/bookinstance_list_borrowed_user.html'
-    paginate_by = 10
+    paginate_by = 5
 
     def get_queryset(self):
         return BookInstance.objects.filter(status__icontains='o')
@@ -91,7 +91,7 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
 
 class AuthorListView(generic.ListView):
     model = Author
-    paginate_by = 2
+    paginate_by = 4
 
 
 class AuthorDetailView(generic.DetailView):
@@ -101,7 +101,6 @@ class AuthorDetailView(generic.DetailView):
 class AuthorCreate(CreateView):
     model = Author
     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
-    initial = {'date_of_death': '11/06/2020'}
 
 
 class AuthorUpdate(UpdateView):
@@ -117,7 +116,6 @@ class AuthorDelete(DeleteView):
 class BookCreate(CreateView):
     model = Book
     fields = ['title', 'author', 'summary', 'isbn', 'genre']
-    initial = {'title': 'The merchant of venice'}
 
 
 class BookUpdate(UpdateView):
