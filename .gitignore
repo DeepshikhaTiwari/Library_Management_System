@@ -7,3 +7,4 @@ migrations
 /__pycache__/
 .swp
 locallibrary/venv/
+staticfiles
