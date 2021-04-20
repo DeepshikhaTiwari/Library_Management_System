@@ -2,7 +2,7 @@ import datetime
 
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
-from .models import Book, Author, BookInstance, Genre
+from .models import Book, Author, BookInstance
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import permission_required, login_required
 from django.http import HttpResponseRedirect
@@ -10,6 +10,7 @@ from django.urls import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
+from .filter import PlaceFilter
 from .forms import RenewBookForm
 
 
@@ -66,18 +67,12 @@ class BookListView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(BookListView, self).get_context_data(**kwargs)
-        context['some_data'] = 'This is just some data'
+        context['filter'] = PlaceFilter(self.request.GET, queryset=self.get_queryset())
         return context
 
 
 class BookDetailView(generic.DetailView):
     model = Book
-
-    def book_detail_view(request, primary_key):
-        try:
-            book = get_object_or_404(Book, pk=primary_key)
-        except Book.DoesNotExist:
-            return render(request, 'catalog/book_detail.html', context={'book': book})
 
 
 class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
@@ -103,14 +98,16 @@ class AuthorCreate(CreateView):
     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
 
 
-class AuthorUpdate(UpdateView):
+class AuthorUpdate(LoginRequiredMixin, UpdateView):
     model = Author
-    fields = '__all__'
+    context_object_name = 'author'
 
 
 class AuthorDelete(DeleteView):
     model = Author
+    context_object_name = 'author'
     success_url = reverse_lazy('author')
+    template_name = 'catalog/author_delete.html'
 
 
 class BookCreate(CreateView):
@@ -120,7 +117,7 @@ class BookCreate(CreateView):
 
 class BookUpdate(UpdateView):
     model = Book
-    fields = '__all__'
+    context_object_name = 'book'
 
 
 class BookDelete(DeleteView):

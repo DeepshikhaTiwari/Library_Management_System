@@ -1,7 +1,10 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Book List</h1>
+
+    <div class="container">
+  <div class="row justify-content-start">
+    <h1>Book List</h1>
 
   {% if my_book_list %}
   <ul>
@@ -14,4 +17,38 @@
   {% else %}
     <p>There are no books in the library.</p>
   {% endif %}
+
+  </div>
+      <div class="row justify-content-around">
+
+      {% block pagination %}
+        {% if is_paginated %}
+            <div class="pagination container border">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+            </div>
+        {% endif %}
+    {% endblock %}
+      <form method="get" class="mt-5">
+        {{ filter.form.as_p }}
+        <input type="submit" >
+    </form>
+      <div class="row no-gutters">
+  <div class="mt-5">
+    {% for filter in filter.qs %}
+        {{ filter.title }} - {{ filter.author }}<br />
+    {% endfor %}
+      </div>
+  </div>
+  </div>
+    </div>
 {% endblock %}
