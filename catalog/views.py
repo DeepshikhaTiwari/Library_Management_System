@@ -101,9 +101,10 @@ class AuthorCreate(CreateView):
 class AuthorUpdate(LoginRequiredMixin, UpdateView):
     model = Author
     context_object_name = 'author'
+    fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
 
 
-class AuthorDelete(DeleteView):
+class AuthorDelete(LoginRequiredMixin, DeleteView):
     model = Author
     context_object_name = 'author'
     success_url = reverse_lazy('author')
@@ -115,12 +116,12 @@ class BookCreate(CreateView):
     fields = ['title', 'author', 'summary', 'isbn', 'genre']
 
 
-class BookUpdate(UpdateView):
+class BookUpdate(LoginRequiredMixin, UpdateView):
     model = Book
     context_object_name = 'book'
     fields = ['title', 'author', 'summary', 'isbn', 'genre']
 
 
-class BookDelete(DeleteView):
+class BookDelete(LoginRequiredMixin, DeleteView):
     model = Book
     success_url = reverse_lazy('book')

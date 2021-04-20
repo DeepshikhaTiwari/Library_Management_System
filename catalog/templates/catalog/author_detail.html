@@ -8,4 +8,7 @@
   <p><strong>Date of birth:</strong> {{ author.date_of_birth }}</p>
   <p><strong>Date of death:</strong> {{ author.date_of_death }}</p>
 
+    <a class="btn btn-primary" href="{% url 'author-update' author.pk %}" role="button">UPDATE AUTHOR</a>
+    <a class="btn btn-primary" href="{% url 'author-delete' author.pk %}" role="button">DELETE AUTHOR</a>
+
 {% endblock %}
