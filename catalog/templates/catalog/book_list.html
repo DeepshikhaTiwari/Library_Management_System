@@ -4,7 +4,7 @@
 
     <div class="container">
   <div class="row justify-content-start">
-    <h1>Book List</h1>
+    <h1>Book List :</h1>
 
   {% if my_book_list %}
   <ul>
@@ -38,17 +38,29 @@
             </div>
         {% endif %}
     {% endblock %}
-      <form method="get" class="mt-5">
+
+      <div class="mt-1">
+
+      <h2>Filter Books :</h2>
+
+      <form method="get" class="mt-3">
         {{ filter.form.as_p }}
         <input type="submit" >
     </form>
+
+      </div>
+
       <div class="row no-gutters">
-  <div class="mt-5">
+  <div class="mt-1">
+
+  <h3>Result - </h3>
+
     {% for filter in filter.qs %}
         {{ filter.title }} - {{ filter.author }}<br />
     {% endfor %}
-      </div>
+
   </div>
-  </div>
+        </div>
     </div>
+ </div>
 {% endblock %}

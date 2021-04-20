@@ -118,6 +118,7 @@ class BookCreate(CreateView):
 class BookUpdate(UpdateView):
     model = Book
     context_object_name = 'book'
+    fields = ['title', 'author', 'summary', 'isbn', 'genre']
 
 
 class BookDelete(DeleteView):
