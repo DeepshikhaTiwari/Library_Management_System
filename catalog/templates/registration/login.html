@@ -2,6 +2,20 @@
 
 {% block content %}
 
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+  <div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="https://img.icons8.com/cotton/2x/user-male.png" id="icon" alt="User Icon" />
+    </div>
+
   {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
   {% endif %}
@@ -27,10 +41,13 @@
         <td>{{ form.password }}</td>
       </tr>
     </table>
-    <input type="submit" value="login" />
+    <input type="submit" class="fadeIn fourth" value="Log In">
     <input type="hidden" name="next" value="{{ next }}" />
   </form>
 
-  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-
+        <div id="formFooter">
+            <a class="underlineHover" href="{% url 'password_reset' %}">Forgot Password?</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

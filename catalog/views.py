@@ -8,7 +8,6 @@ from django.contrib.auth.decorators import permission_required, login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
 
 from .filter import PlaceFilter
 from .forms import RenewBookForm
@@ -93,7 +92,7 @@ class AuthorDetailView(generic.DetailView):
     model = Author
 
 
-class AuthorCreate(CreateView):
+class AuthorCreate(LoginRequiredMixin, CreateView):
     model = Author
     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
 
@@ -106,9 +105,7 @@ class AuthorUpdate(LoginRequiredMixin, UpdateView):
 
 class AuthorDelete(LoginRequiredMixin, DeleteView):
     model = Author
-    context_object_name = 'author'
-    success_url = reverse_lazy('author')
-    template_name = 'catalog/author_delete.html'
+    success_url = '/'
 
 
 class BookCreate(CreateView):
@@ -124,4 +121,4 @@ class BookUpdate(LoginRequiredMixin, UpdateView):
 
 class BookDelete(LoginRequiredMixin, DeleteView):
     model = Book
-    success_url = reverse_lazy('book')
+    success_url = '/'

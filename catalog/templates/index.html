@@ -1,17 +1,23 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Books App</h1>
-    <p>Welcome to LocalLibrary</p>
-  <h2>A place for all the book lovers</h2>
 
-  <p>Book Details Are as follows:</p>
-  <ul>
-    <li><strong>Books:</strong> {{ num_books }}</li>
-    <li><strong>Copies:</strong> {{ num_instances }}</li>
-    <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
-    <li><strong>Authors:</strong> {{ num_authors }}</li>
+<style>
+      body {
+        background-image: url('https://static-cse.canva.com/blob/142529/Image-by-Stanislav-Kondratiev-via-Unsplash.c02b904d.jpg')
+      }
+</style>
+  <h1 class="text-white mt-10">Books App</h1>
+    <p class="text-white mt-10">Welcome to LocalLibrary</p>
+  <h2 class="text-white mt-10">A place for all the book lovers</h2>
+
+  <p class="text-white mt-10">Book Details Are as follows:</p>
+  <ul class="mt-6 list-disc list-inside">
+    <li class="text-white"><strong>Books:</strong> {{ num_books }}</li>
+    <li class="text-white"><strong>Copies:</strong> {{ num_instances }}</li>
+    <li class="text-white"><strong>Copies available:</strong> {{ num_instances_available }}</li>
+    <li class="text-white"><strong>Authors:</strong> {{ num_authors }}</li>
   </ul>
-    <p>You have visited this page {{ num_visits }} time{% if num_visits > 1 %}s{% endif %}.</p>
+    <p class="text-white mt-2">You have visited this page {{ num_visits }} time{% if num_visits > 1 %}s{% endif %}.</p>
 
 {% endblock %}
